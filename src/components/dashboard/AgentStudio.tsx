@@ -23,7 +23,10 @@ import {
     Key,
     Lock,
     Send,
-    Activity
+    Activity,
+    Plus,
+    Fingerprint,
+    Settings
 } from 'lucide-react';
 import { CustomSelect } from './CustomSelect';
 
