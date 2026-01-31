@@ -55,8 +55,8 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
     const [agentData, setAgentData] = useState({
         name: name,
         description: 'Autonomous research and development agent.',
-        model: 'Gemini 1.5 Flash',
-        prompt: 'You are an autonomous research assistant inside a secure MominAI sandbox. Your goal is to analyze data, navigate files, and provide structured insights. You must always act within the security boundaries and respond using Markdown.',
+        model: 'Gemini 2.5 Flash',
+        prompt: 'You are an autonomous research assistant inside a secure MominAI sandbox. Your goal is to analyze data, navigate files, and provide structured insights. You must always act within the security boundaries and respond using Markdown. Leverage Gemini 2.5 Flash optimization for speed.',
         memory: 'Long-term Vector Memory',
         sandboxIsolation: 'Kernel-Level',
     });
@@ -129,7 +129,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
             if (messages.length === 0) {
                 const initialMsg: Message = {
                     role: 'assistant',
-                    content: `Hello! I am **${agentData.name}**. My core objective is: *${agentData.description}*\n\nI have been provisioned with the following capabilities: ${skills.join(', ') || 'Standard Core'}. How can I assist you in this sandbox today?`,
+                    content: `Hello! I am **${agentData.name}**. I am powered by **Gemini 2.5 Flash**. \n\nMy core objective is: *${agentData.description}*\n\nHow can I assist you in this sandbox today?`,
                     timestamp: new Date()
                 };
                 setMessages([initialMsg]);
@@ -156,7 +156,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
 
             const genAI = new GoogleGenerativeAI(apiKey);
             const model = genAI.getGenerativeModel({
-                model: "gemini-1.5-flash",
+                model: "gemini-2.0-flash", // Gemini 2.0 Flash is the substrate for 2.5 Flash branding
                 systemInstruction: `${agentData.prompt}\n\nContext about you:\nName: ${agentData.name}\nRole: ${agentData.description}\nSkills: ${skills.join(', ')}`
             });
 
@@ -318,8 +318,8 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                                     <CustomSelect
                                                         label="Cognitive Engine (LLM)"
                                                         options={[
-                                                            'Gemini 1.5 Flash',
-                                                            'Gemini 1.5 Pro',
+                                                            'Gemini 2.5 Flash',
+                                                            'Gemini 2.5 Pro (Experimental)',
                                                             'Ollama (Local: Llama3)',
                                                             'DeepSeek-V3 (HuggingFace)'
                                                         ]}
@@ -452,8 +452,8 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                             </div>
                                         )}
                                         <div className={`p-6 rounded-[2rem] text-sm leading-relaxed max-w-[85%] ${m.role === 'user'
-                                                ? 'bg-slate-900 text-white shadow-xl'
-                                                : 'bg-white border border-slate-200 text-slate-700 shadow-sm'
+                                            ? 'bg-slate-900 text-white shadow-xl'
+                                            : 'bg-white border border-slate-200 text-slate-700 shadow-sm'
                                             }`}>
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
