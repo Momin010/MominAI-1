@@ -59,6 +59,8 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
         prompt: 'You are an autonomous research assistant inside a secure MominAI sandbox. Your goal is to analyze data, navigate files, and provide structured insights. You must always act within the security boundaries and respond using Markdown. Leverage Gemini 2.5 Flash optimization for speed.',
         memory: 'Long-term Vector Memory',
         sandboxIsolation: 'Kernel-Level',
+        firewall: 'Strict',
+        computeQuota: 'Standard'
     });
 
     // Chat / AI State
@@ -342,7 +344,8 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                                             'Ollama (Local: Llama3)',
                                                             'DeepSeek-V3 (HuggingFace)'
                                                         ]}
-
+                                                        value={agentData.model}
+                                                        onChange={(v) => setAgentData({ ...agentData, model: v })}
                                                     />
 
                                                     <div className="space-y-3">
@@ -391,8 +394,43 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                             </div>
                                         )}
 
-                                        {/* STEP 3 & 4 (Simplified for brevity) */}
-                                        {creationStep >= 3 && (
+                                        {/* STEP 3: ENVIRONMENT & SECURITY */}
+                                        {creationStep === 3 && (
+                                            <div className="space-y-10">
+                                                <div className="flex flex-col gap-2">
+                                                    <h3 className="text-3xl font-bold text-slate-900 tracking-tight">Harden Security</h3>
+                                                    <p className="text-slate-500 leading-relaxed text-lg">Configure the isolation layer and security perimeter for this agent.</p>
+                                                </div>
+
+                                                <div className="space-y-8">
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <CustomSelect
+                                                            label="Isolation Layer"
+                                                            options={['Kernel-Level (Sealed)', 'User-Mode (Standard)', 'Hypervisor (Air-Gapped)']}
+                                                            value={agentData.sandboxIsolation}
+                                                            onChange={(v) => setAgentData({ ...agentData, sandboxIsolation: v })}
+                                                        />
+                                                        <CustomSelect
+                                                            label="Network Firewall"
+                                                            options={['Strict (Local Only)', 'Outbound Only', 'Unrestricted']}
+                                                            value={agentData.firewall}
+                                                            onChange={(v) => setAgentData({ ...agentData, firewall: v })}
+                                                        />
+                                                    </div>
+
+                                                    <div className="p-6 bg-amber-50 rounded-2xl border border-amber-100 flex gap-4">
+                                                        <ShieldCheck className="text-amber-600 shrink-0" size={24} />
+                                                        <div>
+                                                            <p className="text-sm font-bold text-amber-900">Kernel-Level Protection Enabled</p>
+                                                            <p className="text-xs text-amber-700 mt-1">This agent will run in a cryptographic sandbox. All filesystem operations are proxied through the host security manager.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* STEP 4: FINAL VERIFICATION */}
+                                        {creationStep === 4 && (
                                             <div className="space-y-10">
                                                 <div className="flex flex-col gap-2">
                                                     <h3 className="text-3xl font-bold text-slate-900 tracking-tight">Final Verification</h3>
@@ -407,9 +445,13 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                                         <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Cognitive Core</span>
                                                         <span className="font-bold text-slate-900">{agentData.model}</span>
                                                     </div>
+                                                    <div className="flex justify-between border-b border-slate-200 pb-4">
+                                                        <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Network Perim.</span>
+                                                        <span className="font-bold text-slate-900">{agentData.firewall}</span>
+                                                    </div>
                                                     <div className="flex justify-between">
                                                         <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Isolation Layer</span>
-                                                        <span className="font-bold text-slate-900">Kernel-Level (Sealed)</span>
+                                                        <span className="font-bold text-slate-900">{agentData.sandboxIsolation}</span>
                                                     </div>
                                                 </div>
                                             </div>

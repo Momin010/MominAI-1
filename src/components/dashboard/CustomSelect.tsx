@@ -4,13 +4,22 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
-export const CustomSelect = ({ label, options }: { label: string, options: string[] }) => {
+export const CustomSelect = ({ label, options, value, onChange }: { label?: string, options: string[], value?: string, onChange?: (v: string) => void }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(options[0]);
+    const [internalSelected, setInternalSelected] = useState(options[0]);
+
+    const selected = value !== undefined ? value : internalSelected;
+    const setSelected = (v: string) => {
+        if (onChange) {
+            onChange(v);
+        } else {
+            setInternalSelected(v);
+        }
+    };
 
     return (
         <div className="space-y-4 relative">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">{label}</label>
+            {label && <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">{label}</label>}
             <div
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full p-3 bg-white border border-slate-200 rounded-xl text-sm flex items-center justify-between cursor-pointer hover:border-slate-300 transition-all shadow-sm"
