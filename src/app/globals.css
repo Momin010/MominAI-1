@@ -66,8 +66,7 @@ body {
 
 input,
 textarea {
-  color: #0f172a !important;
-  /* Force slate-900 level black for contrast */
+  color: #0f172a;
 }
 
 input::placeholder,
