@@ -73,6 +73,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
     const [tempKey, setTempKey] = useState('');
     const [isSimulating, setIsSimulating] = useState(false);
     const [simulatedActions, setSimulatedActions] = useState<{ icon: any, text: string, type: string }[]>([]);
+    const [hasInteracted, setHasInteracted] = useState(false);
     const chatEndRef = useRef<HTMLDivElement>(null);
     const logEndRef = useRef<HTMLDivElement>(null);
 
@@ -92,7 +93,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
     }, [name]);
 
     useEffect(() => {
-        if (view === 'interaction' && messages.length <= 1) {
+        if (view === 'interaction' && messages.length <= 1 && hasInteracted && inputMessage === '') {
             const demoText = "Can you list all the files and what tools do you have active?";
             let i = 0;
             const interval = setInterval(() => {
@@ -102,7 +103,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
             }, 40);
             return () => clearInterval(interval);
         }
-    }, [view, messages.length]);
+    }, [view, messages.length, hasInteracted]);
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -685,6 +686,7 @@ How would you like to proceed with the development?`;
                                         type="text"
                                         value={inputMessage}
                                         onChange={(e) => setInputMessage(e.target.value)}
+                                        onFocus={() => setHasInteracted(true)}
                                         placeholder="Send directive to the agent..."
                                         className="w-full bg-slate-50 border border-slate-200 rounded-[2.5rem] px-8 py-5 text-sm focus:ring-4 focus:ring-momin-blue/10 focus:bg-white focus:border-momin-blue transition-all outline-none text-slate-900 shadow-sm pr-20"
                                     />
