@@ -455,16 +455,21 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                                             ? 'bg-slate-900 text-white shadow-xl'
                                             : 'bg-white border border-slate-200 text-slate-700 shadow-sm'
                                             }`}>
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                className="prose prose-sm max-w-none"
-                                                components={{
-                                                    code: ({ node, ...props }) => <code className="bg-slate-100 px-1 rounded text-pink-600 font-mono" {...props} />,
-                                                    pre: ({ node, ...props }) => <pre className="bg-slate-50 p-4 rounded-xl border border-slate-200 overflow-x-auto mt-2" {...props} />,
-                                                }}
-                                            >
-                                                {m.content}
-                                            </ReactMarkdown>
+                                            <div className="prose prose-sm max-w-none prose-slate">
+                                                <ReactMarkdown
+                                                    remarkPlugins={[remarkGfm]}
+                                                    components={{
+                                                        code({ node, className, children, ...props }: any) {
+                                                            return <code className="bg-slate-100 px-1 rounded text-pink-600 font-mono" {...props}>{children}</code>;
+                                                        },
+                                                        pre({ node, children, ...props }: any) {
+                                                            return <pre className="bg-slate-50 p-4 rounded-xl border border-slate-200 overflow-x-auto mt-2" {...props}>{children}</pre>;
+                                                        },
+                                                    }}
+                                                >
+                                                    {m.content}
+                                                </ReactMarkdown>
+                                            </div>
                                         </div>
                                         {m.role === 'user' && (
                                             <div className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center font-black shrink-0 border border-slate-200">
@@ -487,7 +492,7 @@ export const AgentStudio = ({ name, onClose }: { name: string, onClose: () => vo
                             </div>
 
                             {/* Input */}
-                            <div className="p-8 border-t border-slate-100">
+                            < div className="p-8 border-t border-slate-100" >
                                 <form onSubmit={sendMessage} className="relative group max-w-4xl mx-auto">
                                     <input
                                         type="text"
