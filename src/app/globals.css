@@ -3,7 +3,8 @@
 :root {
   --background: #050505;
   --foreground: #e5e7eb;
-  --accent: #22c55e;
+  --accent: #4ade80;
+  /* Bright Neon Green (Slate-400 equivalent brightness) */
   --momin-blue: #0066FF;
   --dashboard-bg: #FFFFFF;
   --dashboard-fg: #0f172a;

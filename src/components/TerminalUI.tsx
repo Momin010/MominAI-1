@@ -206,7 +206,7 @@ export default function TerminalUI({ onFinish }: { onFinish: () => void }) {
                         value={inputName}
                         onChange={(e) => setInputName(e.target.value)}
                         className="bg-transparent border-none outline-none !text-accent flex-1"
-                        style={{ color: '#22c55e' }}
+                        style={{ color: '#4ade80', textShadow: '0 0 8px rgba(74, 222, 128, 0.5)' }}
                         spellCheck={false}
                       />
                     </div>
