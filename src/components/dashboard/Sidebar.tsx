@@ -27,16 +27,15 @@ export const Sidebar = ({ activeView, onViewChange }: { activeView: string, onVi
     return (
         <div className="w-72 border-r border-slate-200 bg-white flex flex-col h-screen fixed left-0 top-0 shadow-sm z-50">
             {/* Branding */}
-            <div className="p-8 flex items-center justify-between mb-2">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-momin-blue rounded-2xl shadow-xl shadow-blue-200 flex items-center justify-center text-white font-black text-xl">M</div>
-                    <div>
-                        <span className="font-black text-slate-900 tracking-tighter text-lg leading-none">MominAI</span>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Enterprise v3</span>
-                        </div>
-                    </div>
+            <div className="p-8 flex flex-col mb-2">
+                <img
+                    src="/assets/Component 1.png"
+                    alt="MominAI Logo"
+                    className="h-9 w-auto object-contain self-start"
+                />
+                <div className="flex items-center gap-1.5 mt-4 ml-1">
+                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Enterprise v3</span>
                 </div>
             </div>
 

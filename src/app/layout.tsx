@@ -15,6 +15,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "MominAI | High-Performance Agent Runtime",
   description: "Next-generation AI orchestration and sandboxing",
+  icons: {
+    icon: '/assets/logo.ico',
+  },
 };
 
 export default function RootLayout({
